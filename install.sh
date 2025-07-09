@@ -1,17 +1,31 @@
 #!/usr/bin/env bash
 set -e
 
+# Detect package manager
+if command -v apt-get >/dev/null 2>&1; then
+  UPDATE_CMD="sudo apt-get update"
+  INSTALL_CMD="sudo apt-get install -y"
+  DOCKER_PKG="docker.io"
+elif command -v yum >/dev/null 2>&1; then
+  UPDATE_CMD="sudo yum makecache"
+  INSTALL_CMD="sudo yum install -y"
+  DOCKER_PKG="docker"
+else
+  echo "Weder apt-get noch yum gefunden. Bitte installieren Sie Docker und Docker Compose manuell." >&2
+  exit 1
+fi
+
 # Install docker if not present
 if ! command -v docker >/dev/null 2>&1; then
   echo "Docker wird installiert..."
-  sudo apt-get update
-  sudo apt-get install -y docker.io
+  eval "$UPDATE_CMD"
+  eval "$INSTALL_CMD $DOCKER_PKG"
 fi
 
 # Install docker compose if not present
 if ! docker compose version >/dev/null 2>&1 && ! command -v docker-compose >/dev/null 2>&1; then
   echo "Docker Compose wird installiert..."
-  sudo apt-get install -y docker-compose
+  eval "$INSTALL_CMD docker-compose"
 fi
 
 # Create .env if missing
