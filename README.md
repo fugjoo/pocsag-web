@@ -24,7 +24,8 @@ docker-compose up -d
 
 Für ein lokales Setup kann das Skript `install.sh` genutzt werden. Es richtet
 alle benötigten Dateien ein, installiert Abhängigkeiten und startet die
-Dienste:
+Dienste. Das Skript erkennt dabei automatisch, ob `apt-get` oder `yum`
+verfügbar ist und installiert Docker entsprechend:
 
 ```bash
 ./install.sh
