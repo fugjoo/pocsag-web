@@ -20,6 +20,16 @@ graph TD;
 docker-compose up -d
 ```
 
+### One-Click Installer
+
+Für ein lokales Setup kann das Skript `install.sh` genutzt werden. Es richtet
+alle benötigten Dateien ein, installiert Abhängigkeiten und startet die
+Dienste:
+
+```bash
+./install.sh
+```
+
 ### Lokal
 
 1. `cd backend && npm install`
