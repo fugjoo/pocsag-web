@@ -1,9 +1,9 @@
-# Full Stack Template
+# Atemschutzverwaltung
 
-This repository provides a starter template for a full stack TypeScript project.
-It features a React + Tailwind frontend and a Node.js API using Express (with
-Fastify compatibility). PostgreSQL is managed via Prisma ORM and authentication
-uses JWT with optional OIDC providers.
+Dieses Projekt entwickelt eine Verwaltungssoftware für Atemschutzgeräte und
+Masken nach dem Konzept aus `concept.md`. Basis ist ein Full-Stack-Template mit
+React/Tailwind im Frontend und einer Express API. PostgreSQL wird über Prisma
+angebunden und die Authentifizierung nutzt JWT.
 
 ## Features
 
@@ -14,6 +14,10 @@ uses JWT with optional OIDC providers.
 - **Docker**: Oracle Linux 8 based containers
 - **CI/CD**: GitHub Actions workflow
 - **Code Generation**: integrate with OpenAI Codex for automation
+- **Fire Stations**: CRUD via Prisma and Express
+- **Equipment**: Inventarverwaltung mit Seriennummern
+- **Masks**: Verwaltung von Atemschutzmasken
+- **Inspections**: Prüfprotokolle für Geräte und Masken
 
 ## Getting Started
 
@@ -30,6 +34,7 @@ uses JWT with optional OIDC providers.
 cd backend
 npm install
 npm run dev
+npm run lint
 ```
 
 ### Frontend
@@ -38,6 +43,7 @@ npm run dev
 cd frontend
 npm install
 npm run dev
+npm run lint
 ```
 
 ### Prisma
