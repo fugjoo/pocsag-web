@@ -13,12 +13,3 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
-
-model FireStation {
-  id        Int      @id @default(autoincrement())
-  name      String
-  contact   String?
-  address   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
