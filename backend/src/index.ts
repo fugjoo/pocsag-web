@@ -42,5 +42,24 @@ app.post('/firestations', async (req, res) => {
   }
 });
 
+app.get('/equipment', async (_req, res) => {
+  const items = await prisma.equipment.findMany({
+    include: { station: true },
+  });
+  res.json(items);
+});
+
+app.post('/equipment', async (req, res) => {
+  try {
+    const { serial, type, model, manufacturer, stationId } = req.body;
+    const item = await prisma.equipment.create({
+      data: { serial, type, model, manufacturer, stationId },
+    });
+    res.status(201).json(item);
+  } catch {
+    res.status(400).json({ error: 'Failed to create equipment' });
+  }
+});
+
 const port = parseInt(process.env.PORT || '3000', 10);
 app.listen(port, () => console.log(`API running on :${port}`));

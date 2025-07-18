@@ -21,4 +21,17 @@ model FireStation {
   address   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  equipment Equipment[]
+}
+
+model Equipment {
+  id           Int      @id @default(autoincrement())
+  serial       String   @unique
+  type         String
+  model        String
+  manufacturer String
+  stationId    Int
+  station      FireStation @relation(fields: [stationId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
