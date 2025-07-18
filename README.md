@@ -18,6 +18,9 @@ angebunden und die Authentifizierung nutzt JWT.
 - **Equipment**: Inventarverwaltung mit Seriennummern
 - **Masks**: Verwaltung von Atemschutzmasken
 - **Inspections**: Prüfprotokolle für Geräte und Masken
+- **Spare Parts**: Lagerbestand und Bestellvorschläge
+- **Overhauls**: Grundüberholungen im 6-Jahres-Rhythmus
+- **Reporting**: Automatisierte PDF-Berichte
 
 ## Getting Started
 
