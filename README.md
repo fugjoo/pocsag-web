@@ -16,6 +16,8 @@ angebunden und die Authentifizierung nutzt JWT.
 - **Code Generation**: integrate with OpenAI Codex for automation
 - **Fire Stations**: CRUD via Prisma and Express
 - **Equipment**: Inventarverwaltung mit Seriennummern
+- **Masks**: Verwaltung von Atemschutzmasken
+- **Inspections**: Prüfprotokolle für Geräte und Masken
 
 ## Getting Started
 

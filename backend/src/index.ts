@@ -61,5 +61,45 @@ app.post('/equipment', async (req, res) => {
   }
 });
 
+app.get('/masks', async (_req, res) => {
+  const masks = await prisma.mask.findMany({ include: { station: true } });
+  res.json(masks);
+});
+
+app.post('/masks', async (req, res) => {
+  try {
+    const { serial, model, manufacturer, stationId } = req.body;
+    const mask = await prisma.mask.create({
+      data: { serial, model, manufacturer, stationId },
+    });
+    res.status(201).json(mask);
+  } catch {
+    res.status(400).json({ error: 'Failed to create mask' });
+  }
+});
+
+app.get('/inspections', async (_req, res) => {
+  const inspections = await prisma.inspection.findMany({
+    include: { equipment: true, mask: true },
+    orderBy: { date: 'desc' },
+  });
+  res.json(inspections);
+});
+
+app.post('/inspections', async (req, res) => {
+  const { equipmentId, maskId, notes, date } = req.body;
+  if (!equipmentId && !maskId) {
+    return res.status(400).json({ error: 'equipmentId or maskId required' });
+  }
+  try {
+    const inspection = await prisma.inspection.create({
+      data: { equipmentId, maskId, notes, date },
+    });
+    res.status(201).json(inspection);
+  } catch {
+    res.status(400).json({ error: 'Failed to create inspection' });
+  }
+});
+
 const port = parseInt(process.env.PORT || '3000', 10);
 app.listen(port, () => console.log(`API running on :${port}`));
