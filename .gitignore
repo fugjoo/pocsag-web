@@ -1,4 +1,9 @@
 node_modules
 .env
-*.sqlite
-/dist
+.env.*
+dist
+coverage
+# vscode
+.vscode
+# prisma
+prisma/dev.db

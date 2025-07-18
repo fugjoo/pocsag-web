@@ -1,55 +1,57 @@
-# Pocsag Web
+# Full Stack Template
 
-Dies ist eine private Webanwendung zur Anzeige der Alarmliste von **Pocsag Südtirol**.
+This repository provides a starter template for a full stack TypeScript project.
+It features a React + Tailwind frontend and a Node.js API using Express (with
+Fastify compatibility). PostgreSQL is managed via Prisma ORM and authentication
+uses JWT with optional OIDC providers.
 
-## Datenfluss
+## Features
 
-```mermaid
-graph TD;
-    Webhook-->Backend;
-    Backend-->DB[(SQLite)];
-    Backend--REST-->Frontend;
-    Backend--SSE-->Frontend;
-```
+- **Frontend**: React, TypeScript, Tailwind CSS powered by Vite
+- **Backend**: Node.js, Express/Fastify, TypeScript
+- **Database**: PostgreSQL with Prisma ORM
+- **Auth**: JWT/OIDC
+- **Docker**: Oracle Linux 8 based containers
+- **CI/CD**: GitHub Actions workflow
+- **Code Generation**: integrate with OpenAI Codex for automation
 
-## Setup
+## Getting Started
 
-### Docker
+1. Copy `.env.example` to `.env` and fill in the variables.
+2. Run `docker compose up --build` to start the stack.
+3. Access the frontend at `http://localhost:5173` and the API at
+   `http://localhost:3000`.
+
+## Development
+
+### Backend
 
 ```bash
-docker-compose up -d
+cd backend
+npm install
+npm run dev
 ```
 
-### One-Click Installer
-
-Für ein lokales Setup kann das Skript `install.sh` genutzt werden. Es richtet
-alle benötigten Dateien ein, installiert Abhängigkeiten und startet die
-Dienste. Das Skript erkennt dabei automatisch, ob `apt-get` oder `yum`
-verfügbar ist und installiert Docker entsprechend:
+### Frontend
 
 ```bash
-./install.sh
+cd frontend
+npm install
+npm run dev
 ```
 
-### Lokal
+### Prisma
 
-1. `cd backend && npm install`
-2. `cd frontend && npm install`
-3. `.env` anlegen nach `.env.example`
-4. Backend starten: `npm run dev`
-5. Frontend starten: `npm run dev`
-
-## .env Variablen
-
-```
-PORT=3000
-JWT_SECRET=changeme
-POCSAG_USER=<user>
-POCSAG_PASS=<pass>
+```bash
+npx prisma db push
 ```
 
-## Screenshots
+## GitHub Actions
 
-![Login](docs/login.png)
-![Übersicht](docs/overview.png)
+A basic workflow installs dependencies, runs lints and builds the project. Feel
+free to extend it with deployment steps.
 
+## OpenAI Codex
+
+This repository is optimized for the OpenAI Codex agent to automate routine
+tasks. See `AGENTS.md` for tips on how to interact with Codex.
