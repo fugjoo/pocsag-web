@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 
@@ -8,13 +8,13 @@ app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-app.post('/login', (req, res) => {
+app.post('/login', (req: Request, res: Response) => {
   const { email } = req.body;
   const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
   res.json({ token });
 });
 
-app.get('/protected', (req, res) => {
+app.get('/protected', (req: Request, res: Response) => {
   const auth = req.headers.authorization;
   if (!auth) return res.status(401).end();
   try {
@@ -25,12 +25,12 @@ app.get('/protected', (req, res) => {
   }
 });
 
-app.get('/firestations', async (_req, res) => {
+app.get('/firestations', async (_req: Request, res: Response) => {
   const stations = await prisma.fireStation.findMany();
   res.json(stations);
 });
 
-app.post('/firestations', async (req, res) => {
+app.post('/firestations', async (req: Request, res: Response) => {
   try {
     const { name, contact, address } = req.body;
     const station = await prisma.fireStation.create({
@@ -42,14 +42,14 @@ app.post('/firestations', async (req, res) => {
   }
 });
 
-app.get('/equipment', async (_req, res) => {
+app.get('/equipment', async (_req: Request, res: Response) => {
   const items = await prisma.equipment.findMany({
     include: { station: true },
   });
   res.json(items);
 });
 
-app.post('/equipment', async (req, res) => {
+app.post('/equipment', async (req: Request, res: Response) => {
   try {
     const { serial, type, model, manufacturer, stationId } = req.body;
     const item = await prisma.equipment.create({
@@ -61,12 +61,12 @@ app.post('/equipment', async (req, res) => {
   }
 });
 
-app.get('/masks', async (_req, res) => {
+app.get('/masks', async (_req: Request, res: Response) => {
   const masks = await prisma.mask.findMany({ include: { station: true } });
   res.json(masks);
 });
 
-app.post('/masks', async (req, res) => {
+app.post('/masks', async (req: Request, res: Response) => {
   try {
     const { serial, model, manufacturer, stationId } = req.body;
     const mask = await prisma.mask.create({
@@ -78,7 +78,7 @@ app.post('/masks', async (req, res) => {
   }
 });
 
-app.get('/inspections', async (_req, res) => {
+app.get('/inspections', async (_req: Request, res: Response) => {
   const inspections = await prisma.inspection.findMany({
     include: { equipment: true, mask: true },
     orderBy: { date: 'desc' },
@@ -86,7 +86,7 @@ app.get('/inspections', async (_req, res) => {
   res.json(inspections);
 });
 
-app.post('/inspections', async (req, res) => {
+app.post('/inspections', async (req: Request, res: Response) => {
   const { equipmentId, maskId, notes, date } = req.body;
   if (!equipmentId && !maskId) {
     return res.status(400).json({ error: 'equipmentId or maskId required' });
@@ -102,4 +102,9 @@ app.post('/inspections', async (req, res) => {
 });
 
 const port = parseInt(process.env.PORT || '3000', 10);
-app.listen(port, () => console.log(`API running on :${port}`));
+
+if (require.main === module) {
+  app.listen(port, () => console.log(`API running on :${port}`));
+}
+
+export default app;

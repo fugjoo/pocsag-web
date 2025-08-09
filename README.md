@@ -52,6 +52,19 @@ npm run lint
 npx prisma db push
 ```
 
+## Deployment auf Vercel
+
+1. Erstelle ein Konto auf [vercel.com](https://vercel.com/) und importiere
+   dieses Repository.
+2. Beim Import erkennt Vercel die bereitgestellte `vercel.json`. Das Frontend
+   wird mit `npm run build` in `frontend` gebaut und als statische Dateien
+   ausgeliefert.
+3. Die Express-API wird als Serverless Function unter `/api` bereitgestellt.
+4. Lege in den Projekteinstellungen die notwendigen Umgebungsvariablen an,
+   z.B. `DATABASE_URL` und `JWT_SECRET`.
+5. Starte den ersten Deploy. Anschließend ist das Frontend über die vergebene
+   Vercel‑URL erreichbar und API‑Aufrufe laufen über `/api`.
+
 ## GitHub Actions
 
 A basic workflow installs dependencies, runs lints and builds the project. Feel
